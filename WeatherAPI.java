@@ -6,8 +6,8 @@ import org.json.*;
 
 
 /**
- * This class demos how to make an API call, parse the JSON response and uses the response
- * values to create an ArrayList of RecipePuppyRecipe objects.
+ * This class takes pulls weather data by ZipCode
+ * using an API for the NOAA. This data can then be cleaned
  *
  */
 public class WeatherAPI {
@@ -35,6 +35,7 @@ public class WeatherAPI {
 		double min = 0.0;
 		double precipitation = 0.0;
 		double snow = 0.0;
+		
 		//for the first object, collect date, station because these values
 		//will not change in the remaining objects
 		for(int i = 0; i < 1; i++) {
@@ -124,7 +125,7 @@ public class WeatherAPI {
 				String tempZip = myScanner.nextLine();
 				
 				//collect n number of days worth of weather data
-				for(int i = 0; i < 2 ; i++) {
+				for(int i = 0; i < 365 ; i++) {
 
 					//set API Parameters
 					String queryParams = "?datasetid=GHCND&locationid=ZIP:" + tempZip + "&startdate=" + dateForAPICall + "&enddate=" + dateForAPICall + "&units=standard";
@@ -154,7 +155,7 @@ public class WeatherAPI {
 				
 					//increment date up by one day
 					try {
-						dateForAPICall= du.addOneDayCalendar(dateForAPICall);
+						dateForAPICall= du.incrementCalendar(dateForAPICall);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
