@@ -1,4 +1,9 @@
-
+/**
+ * this class creates a DailyWeather object that will store 
+ * characteristics for weather on a daily basis. This will be
+ * used in conjunction with the WeatherAPI Class.
+ *
+ */
 public class DailyWeather {
 	String date;
 	String station;

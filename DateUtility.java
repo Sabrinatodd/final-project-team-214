@@ -2,37 +2,39 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/**
+ * this class provides utility using dates that are
+ * subsequently used in our WeatherAPI Class
+ */
 public class DateUtility {
 	int year;
 	int month;
 	int day;
 	
+	/**
+	 * this constructor takes a "yyyy-mmm-dd" date format
+	 * and turns it into
+	 * @param date a "yyyy-mmm-dd" string variable date
+	 */
 	public DateUtility(String date){
 		this.year = Integer.parseInt(date.substring(0, 4));
 		this.month = Integer.parseInt(date.substring(5,7));
 		this.day = Integer.parseInt(date.substring(8,10));
 	}
 	
-	public String addOneDayCalendar(String date) throws ParseException{	  
+	/**
+	 * this method increments a string variable date and increments
+	 * it up by one day
+	 * @param date the starting date
+	 * @return String representing the date plus one day
+	 * @throws ParseException
+	 */
+	public String incrementCalendar(String date) throws ParseException{	  
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    Calendar c = Calendar.getInstance();
 	    c.setTime(sdf.parse(date));
 	    c.add(Calendar.DATE, 1);
 	    return sdf.format(c.getTime());
-	}
-	
-	
-	public static void main(String[] args) {
-		DateUtility du = new DateUtility("2019-05-01");
-		System.out.println(du.getYear());
-		System.out.println(du.getMonth());
-		System.out.println(du.getDay());
-		
-		try {
-			System.out.println(du.addOneDayCalendar("2019-05-31"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public int getYear() {
