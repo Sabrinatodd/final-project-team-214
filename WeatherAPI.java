@@ -1,15 +1,9 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.ParseException;
-import java.util.ArrayList;
+import java.io.*;
+import java.net.*;
+import java.text.*;
+import java.util.*;
+import org.json.*;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * This class demos how to make an API call, parse the JSON response and uses the response
@@ -107,53 +101,76 @@ public class WeatherAPI {
 		return response.toString();
 	}
 	
-	public static void main(String[] args) {
-		
-		//create the API URL
-		String endPoint = "https://www.ncdc.noaa.gov";
-		String path = "/cdo-web/api/v2/data";
-		
-		//GET EVERY DAY FOR TWO MONTHS
-		String dateForAPICall = "2019-05-01";
+	/**
+	 * this is the main function to getWeatherData by ZipCode in CA.
+	 * !!!THIS NEEDS TO BE UPDATED TO ACCOUNT FOR ZIPCODES THAT HAVE
+	 * NO WEATHER STATION AVAILABLE
+	 */
+	public void getWeatherData() {
+		String dateForAPICall = "2019-01-01";
 		DateUtility du = new DateUtility(dateForAPICall);
 		
-		for(int i = 0; i < 60 ; i++) {
-			//this will eventually take different ZIPCodes
-			//for now though I'm minimizing variables to get it working properly
-			String queryParams = "?datasetid=GHCND&locationid=ZIP:28801&startdate=" + dateForAPICall + "&enddate=" + dateForAPICall + "&units=standard";
-			String weatherDailiesURL = endPoint + path + queryParams;
+		File f = new File ("CA_ZipCodes");
+		
+		try {
+			Scanner myScanner = new Scanner(f);
 			
-			//create WeatherAPI
-			WeatherAPI wAPI = new WeatherAPI();
-			ArrayList<DailyWeather> dailyWeather = new ArrayList<>();
+			//create the API URL
+			String endPoint = "https://www.ncdc.noaa.gov";
+			String path = "/cdo-web/api/v2/data";
 			
-			try {
-				//make the API call and get a String response
-				String jsonResponse = wAPI.makeAPICall(weatherDailiesURL);
+			//for every zip code in California
+			while(myScanner.hasNextLine()) {
+				String tempZip = myScanner.nextLine();
 				
-				//parse the response and get an ArrayList of RecipePuppyRecipe objects
-				dailyWeather = wAPI.parseWeatherJSON(jsonResponse);
-				//view the results in a proper Java object
-				for(DailyWeather day : dailyWeather) {
-					System.out.println("Date: " + day.getDate() + "   TMax: "+ day.getTempMax() + "   TMin "+ day.getTempMin());
+				//collect n number of days worth of weather data
+				for(int i = 0; i < 2 ; i++) {
+
+					//set API Parameters
+					String queryParams = "?datasetid=GHCND&locationid=ZIP:" + tempZip + "&startdate=" + dateForAPICall + "&enddate=" + dateForAPICall + "&units=standard";
+					String weatherDailiesURL = endPoint + path + queryParams;
+					
+					//create WeatherAPI
+					WeatherAPI wAPI = new WeatherAPI();
+					ArrayList<DailyWeather> dailyWeather = new ArrayList<>();
+					
+					
+					try {
+						//make the API call and get a String response
+						String jsonResponse = wAPI.makeAPICall(weatherDailiesURL);
+						
+						//parse the response and get an ArrayList of weather objects
+						dailyWeather = wAPI.parseWeatherJSON(jsonResponse);
+						//view the results in a proper Java object
+						for(DailyWeather day : dailyWeather) {
+							System.out.println("Date: " + day.getDate() + "   TMax: "+ day.getTempMax() + "   TMin "+ day.getTempMin());
+						}
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				
+					//increment date up by one day
+					try {
+						dateForAPICall= du.addOneDayCalendar(dateForAPICall);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 				}
 				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
+				myScanner.close();
 			}
-		
-			//increment date
-			try {
-				dateForAPICall= du.addOneDayCalendar(dateForAPICall);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		
+			
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
 		}
-		
-
+	}
+	
+	public static void main(String[] args) {
+		WeatherAPI api = new WeatherAPI();
+		api.getWeatherData();
 	} 
 }
 	
