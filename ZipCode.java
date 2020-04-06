@@ -1,9 +1,16 @@
-
+/**
+ *The ZipCode class will store relevant home and weather data for each ZIP code. 
+ * 
+ * @author michaelhoffmann johnconolly sabrinatodd
+ *
+ */
 public class ZipCode {
 	private int homePriceOverall;
 	private int oneBedroomPrice;
 	private int twoBedroomPrice;
 	private int threeBedroomPrice;
+	private int fourBedroomPrice;
+	private int fiveBedroomPrice;
 	private double monthlyPrecipitation;
 	private double dailyTemperature;
 	private int annualDaysBelowFreezing;
@@ -19,11 +26,13 @@ public class ZipCode {
 	 * @param temperature
 	 * @param daysBelowFreezing
 	 */
-	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, double precipitation, double temperature, int daysBelowFreezing) {
+	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fiveBedroom, double precipitation, double temperature, int daysBelowFreezing) {
 		this.homePriceOverall = homePrice;
 		this.oneBedroomPrice = oneBedroom;
 		this.twoBedroomPrice = twoBedroom;
 		this.threeBedroomPrice = threeBedroom;
+		this.fourBedroomPrice = fourBedroom;
+		this.fiveBedroomPrice = fiveBedroom;
 		this.monthlyPrecipitation = precipitation;
 		this.dailyTemperature = temperature;
 		this.annualDaysBelowFreezing = daysBelowFreezing;
@@ -58,6 +67,22 @@ public class ZipCode {
 	public int getThreeBedroomPrice() {
 		return threeBedroomPrice;
 	}
+	
+	/**
+	 * @return ZIP code's average price for four bedroom homes
+	 */
+	public int getFourBedroomPrice() {
+		return fourBedroomPrice;
+	}
+
+	
+	/**
+	 * @return ZIP code's average price for five bedroom homes
+	 */
+	public int getFiveBedroomPrice() {
+		return fiveBedroomPrice;
+	}
+
 
 	/**
 	 * @return ZIP code's average monthly precipitation
