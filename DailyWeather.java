@@ -1,16 +1,10 @@
-<<<<<<< HEAD
 /**
-=======
-
- /**
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
  * This class creates a DailyWeather object that will store 
  * characteristics for weather on a daily basis. This will be
  * used in conjunction with the WeatherAPI Class.
  *
  */
 public class DailyWeather {
-<<<<<<< HEAD
 	private String date;
 	private String station;
 	private String zipCode;
@@ -18,15 +12,6 @@ public class DailyWeather {
 	private double tempMin;
 	private double precipitation;
 	private double snow;
-=======
-	String date;
-	String station;
-	String zipCode;
-	double tempMax;
-	double tempMin;
-	double precipitation;
-	double snow;
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	
 	/**
 	 * Constructor for DailyWeather
@@ -51,10 +36,6 @@ public class DailyWeather {
 	
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @return date
 	 */
 	public String getDate() {
@@ -62,10 +43,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param date
 	 */
 	public void setDate(String date) {
@@ -73,22 +50,13 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * @return max temperature
-=======
-	 * 
-	 * @return max temp
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 */
 	public double getTempMax() {
 		return tempMax;
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param tempMax
 	 */
 	public void setTempMax(double tempMax) {
@@ -96,22 +64,13 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * @return minimum temperature
-=======
-	 * 
-	 * @return min temp
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 */
 	public double getTempMin() {
 		return tempMin;
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param tempMin
 	 */
 	public void setTempMin(double tempMin) {
@@ -127,10 +86,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param station
 	 */
 	public void setStation(String station) {
@@ -138,10 +93,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @return ZIP code
 	 */
 	public String getZipCode() {
@@ -149,10 +100,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param zipCode
 	 */
 	public void setZipCode(String zipCode) {
@@ -160,23 +107,13 @@ public class DailyWeather {
 	}	
 	
 	/**
-<<<<<<< HEAD
 	 * @return precipitation
-=======
-	 * 
-	 * @return preciitation
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 */
 	public double getPrecipitation() {
 		return precipitation;
 	}
 
-<<<<<<< HEAD
 	 /**
-=======
-	/**
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param precipitation
 	 */
 	public void setPrecipitation(double precipitation) {
@@ -184,10 +121,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @return snow
 	 */
 	public double getSnow() {
@@ -195,10 +128,6 @@ public class DailyWeather {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * 
->>>>>>> 153fd32788d30934e6e8f5897ed6d7f59a89366b
 	 * @param snow
 	 */
 	public void setSnow(double snow) {
