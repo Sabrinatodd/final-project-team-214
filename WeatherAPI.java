@@ -4,7 +4,6 @@ import java.text.*;
 import java.util.*;
 import org.json.*;
 
-
 /**
  * This class pulls weather data by ZipCode
  * using an API for the NOAA. This data can then be cleaned
