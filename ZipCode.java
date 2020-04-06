@@ -1,14 +1,7 @@
 /**
-<<<<<<< Updated upstream
- *The ZipCode class will store relevant home and weather data for each ZIP code. 
- * 
- * @author michaelhoffmann johnconolly sabrinatodd
- *
-=======
  * This class will store each field of data collected
  * for a Zip Code. This will allow for the data to be
  * used and called more easily.
->>>>>>> Stashed changes
  */
 public class ZipCode {
 	private int homePriceOverall;
@@ -16,12 +9,8 @@ public class ZipCode {
 	private int twoBedroomPrice;
 	private int threeBedroomPrice;
 	private int fourBedroomPrice;
-<<<<<<< Updated upstream
-	private int fiveBedroomPrice;
-=======
 	private int fivePlusBedroomPrice;
 	
->>>>>>> Stashed changes
 	private double monthlyPrecipitation;
 	private double dailyTemperature;
 	private int annualDaysBelowFreezing;
@@ -38,21 +27,13 @@ public class ZipCode {
 	 * @param fivePlusBedroom
 	 * @param overallPrice
 	 */
-<<<<<<< Updated upstream
-	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fiveBedroom, double precipitation, double temperature, int daysBelowFreezing) {
-=======
 	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fivePlusBedroom, double precipitation, double temperature, int daysBelowFreezing) {
->>>>>>> Stashed changes
 		this.homePriceOverall = homePrice;
 		this.oneBedroomPrice = oneBedroom;
 		this.twoBedroomPrice = twoBedroom;
 		this.threeBedroomPrice = threeBedroom;
 		this.fourBedroomPrice = fourBedroom;
-<<<<<<< Updated upstream
-		this.fiveBedroomPrice = fiveBedroom;
-=======
 		this.fivePlusBedroomPrice = fivePlusBedroom;
->>>>>>> Stashed changes
 		this.monthlyPrecipitation = precipitation;
 		this.dailyTemperature = temperature;
 		this.annualDaysBelowFreezing = daysBelowFreezing;
@@ -113,22 +94,6 @@ public class ZipCode {
 	}
 	
 	/**
-<<<<<<< Updated upstream
-	 * @return ZIP code's average price for four bedroom homes
-	 */
-	public int getFourBedroomPrice() {
-		return fourBedroomPrice;
-	}
-
-	
-	/**
-	 * @return ZIP code's average price for five bedroom homes
-	 */
-	public int getFiveBedroomPrice() {
-		return fiveBedroomPrice;
-	}
-
-=======
 	 * 
 	 * @param threeBedroomPrice ZIP code's average price for three bedroom homes
 	 */
@@ -167,7 +132,6 @@ public class ZipCode {
 	public void setFivePlusBedroomPrice(Integer fivePlusBedroomPrice) {
 		this.fivePlusBedroomPrice = fivePlusBedroomPrice;
 	}
->>>>>>> Stashed changes
 
 	/**
 	 * @return ZIP code's average monthly precipitation
