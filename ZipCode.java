@@ -17,15 +17,15 @@ public class ZipCode {
 
 	
 	/**
-	 * Constructor for ZIP codes accepts all home prices data
-	 * 
-	 * @param homePrice
-	 * @param oneBedroom
-	 * @param twoBedroom
-	 * @param threeBedroom
-	 * @param fourBedroom
-	 * @param fivePlusBedroom
-	 * @param overallPrice
+	 * @param homePrice overall home price for a given Zip Code
+	 * @param oneBedroom price of a one bedroom home 
+	 * @param twoBedroom price of a two bedroom home 
+	 * @param threeBedroom price of a three bedroom home 
+	 * @param fourBedroom price of a four bedroom home 
+	 * @param fivePlusBedroom price of homes with five or more bedrooms
+	 * @param precipitation average daily precipitation 
+	 * @param temperature average daily temperature
+	 * @param daysBelowFreezing number of days below freezing temperature
 	 */
 	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fivePlusBedroom, double precipitation, double temperature, int daysBelowFreezing) {
 		this.homePriceOverall = homePrice;
