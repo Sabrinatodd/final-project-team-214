@@ -3,13 +3,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * this class provides utility using dates that are
- * subsequently used in our WeatherAPI Class
+ * This class provides utility using dates that are
+ * subsequently used in our WeatherAPI Class. 
  */
 public class DateUtility {
-	int year;
-	int month;
-	int day;
+	private int year;
+	private int month;
+	private int day;
 	
 	/**
 	 * this constructor takes a "yyyy-mmm-dd" date format
@@ -37,26 +37,45 @@ public class DateUtility {
 	    return sdf.format(c.getTime());
 	}
 	
+	/** 
+	 * @return year
+	 */
 	public int getYear() {
 		return year;
 	}
 
+	/**
+	 * @param year
+	 */
 	public void setYear(int year) {
 		this.year = year;
 	}
 
+	/** 
+	 * @return month
+	 */
 	public int getMonth() {
 		return month;
 	}
 
+	/**
+	 * @param month
+	 */
 	public void setMonth(int month) {
 		this.month = month;
 	}
 
+	/** 
+	 * @return day
+	 */
 	public int getDay() {
 		return day;
 	}
 
+	/**
+	 * 
+	 * @param day
+	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
