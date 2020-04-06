@@ -6,14 +6,14 @@ import org.json.*;
 
 
 /**
- * This class takes pulls weather data by ZipCode
+ * This class pulls weather data by ZipCode
  * using an API for the NOAA. This data can then be cleaned
- *
+ * and added to the HashMap of ZipCode objects.
  */
 public class WeatherAPI {
 	
 	/**
-	 * Parse the JSON response String
+	 * Parse the JSON Output of the API to find weather data
 	 * @param jsonResponse
 	 * @return ArrayList of weather objects
 	 * @throws JSONException
@@ -74,7 +74,7 @@ public class WeatherAPI {
 	/**
 	 * Makes the API call and returns the JSON result as a String
 	 * @param url
-	 * @return
+	 * @return JSON Output of API as a String
 	 * @throws IOException
 	 */
 	public String makeAPICall(String url) throws IOException {
@@ -103,14 +103,15 @@ public class WeatherAPI {
 	}
 	
 	/**
-	 * this is the main function to getWeatherData by ZipCode in CA.
-	 * !!!THIS NEEDS TO BE UPDATED TO ACCOUNT FOR ZIPCODES THAT HAVE
-	 * NO WEATHER STATION AVAILABLE
+	 * This method uses the NOAA API to collect weather data for
+	 * each Zip Code in California that has data available. Data
+	 * is collected for each day of the year for each Zip Code.
+	 * @return ArrayList of weather data for each Zip Code for each day of the year
 	 */
-	public void getWeatherData() {
+	public ArrayList<DailyWeather> getWeatherData() {
 		String dateForAPICall = "2019-01-01";
 		DateUtility du = new DateUtility(dateForAPICall);
-		
+		ArrayList<DailyWeather> dailyWeatherData = new ArrayList<>();
 		File f = new File ("CA_ZipCodes");
 		
 		try {
@@ -133,7 +134,7 @@ public class WeatherAPI {
 					
 					//create WeatherAPI
 					WeatherAPI wAPI = new WeatherAPI();
-					ArrayList<DailyWeather> dailyWeather = new ArrayList<>();
+					
 					
 					
 					try {
@@ -141,9 +142,10 @@ public class WeatherAPI {
 						String jsonResponse = wAPI.makeAPICall(weatherDailiesURL);
 						
 						//parse the response and get an ArrayList of weather objects
-						dailyWeather = wAPI.parseWeatherJSON(jsonResponse);
-						//view the results in a proper Java object
-						for(DailyWeather day : dailyWeather) {
+						dailyWeatherData = wAPI.parseWeatherJSON(jsonResponse);
+						
+						//print results
+						for(DailyWeather day : dailyWeatherData) {
 							System.out.println("Date: " + day.getDate() + "   TMax: "+ day.getTempMax() + "   TMin "+ day.getTempMin());
 						}
 						
@@ -167,8 +169,33 @@ public class WeatherAPI {
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+		
+		return dailyWeatherData;
 	}
 	
+	
+	/**
+	 * This method cleans an ArrayList of weather data to make the 
+	 * data appropriate for one year intervals. This includes averaging
+	 * temperature fields and summing total days above or below certain 
+	 * precipitation and temperature thresholds. This method also cleans
+	 * Zip Codes that have missing or no weather data available  	 
+	 * @return ArrayList of weather data respective of the entire year
+	 */
+	public ArrayList<DailyWeather> cleanWeatherData(ArrayList<DailyWeather> weatherDataArray){
+		//for each weather object in the array
+			//check for missing or incomplete data
+		
+		//average minimum temperature for the year
+		//average max temperature for the year
+		//average daily snow and precipitation for the year
+		//count the number of days below freezing
+		
+		//store each of these variables in a DailyWeather object that is then stored
+		// in an arraylist to be returned.
+	}
+	
+	//This is for testing purposes only. Can be deleted once operational.
 	public static void main(String[] args) {
 		WeatherAPI api = new WeatherAPI();
 		api.getWeatherData();

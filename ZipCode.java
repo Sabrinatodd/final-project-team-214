@@ -1,29 +1,58 @@
-
+/**
+<<<<<<< Updated upstream
+ *The ZipCode class will store relevant home and weather data for each ZIP code. 
+ * 
+ * @author michaelhoffmann johnconolly sabrinatodd
+ *
+=======
+ * This class will store each field of data collected
+ * for a Zip Code. This will allow for the data to be
+ * used and called more easily.
+>>>>>>> Stashed changes
+ */
 public class ZipCode {
 	private int homePriceOverall;
 	private int oneBedroomPrice;
 	private int twoBedroomPrice;
 	private int threeBedroomPrice;
+	private int fourBedroomPrice;
+<<<<<<< Updated upstream
+	private int fiveBedroomPrice;
+=======
+	private int fivePlusBedroomPrice;
+	
+>>>>>>> Stashed changes
 	private double monthlyPrecipitation;
 	private double dailyTemperature;
 	private int annualDaysBelowFreezing;
 
 	
 	/**
-	 * Constructor for ZIP codes
+	 * Constructor for ZIP codes accepts all home prices data
+	 * 
 	 * @param homePrice
 	 * @param oneBedroom
 	 * @param twoBedroom
 	 * @param threeBedroom
-	 * @param precipitation
-	 * @param temperature
-	 * @param daysBelowFreezing
+	 * @param fourBedroom
+	 * @param fivePlusBedroom
+	 * @param overallPrice
 	 */
-	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, double precipitation, double temperature, int daysBelowFreezing) {
+<<<<<<< Updated upstream
+	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fiveBedroom, double precipitation, double temperature, int daysBelowFreezing) {
+=======
+	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fivePlusBedroom, double precipitation, double temperature, int daysBelowFreezing) {
+>>>>>>> Stashed changes
 		this.homePriceOverall = homePrice;
 		this.oneBedroomPrice = oneBedroom;
 		this.twoBedroomPrice = twoBedroom;
 		this.threeBedroomPrice = threeBedroom;
+		this.fourBedroomPrice = fourBedroom;
+<<<<<<< Updated upstream
+		this.fiveBedroomPrice = fiveBedroom;
+=======
+		this.fivePlusBedroomPrice = fivePlusBedroom;
+>>>>>>> Stashed changes
 		this.monthlyPrecipitation = precipitation;
 		this.dailyTemperature = temperature;
 		this.annualDaysBelowFreezing = daysBelowFreezing;
@@ -37,12 +66,28 @@ public class ZipCode {
 	public int getHomePriceOverall() {
 		return homePriceOverall;
 	}
+	
+	/**
+	 * 
+	 * @param homePriceOverall overall home price
+	 */
+	public void setHomePriceOverall(Integer homePriceOverall) {
+		this.homePriceOverall = homePriceOverall;
+	}
 
 	/**
 	 * @return ZIP code's average price for one bedroom homes
 	 */
 	public int getOneBedroomPrice() {
 		return oneBedroomPrice;
+	}
+	
+	/**
+	 * 
+	 * @param oneBedroomPrice ZIP code's average price for one bedroom homes
+	 */
+	public void setOneBedroomPrice(Integer oneBedroomPrice) {
+		this.oneBedroomPrice = oneBedroomPrice;
 	}
 
 	/**
@@ -51,6 +96,14 @@ public class ZipCode {
 	public int getTwoBedroomPrice() {
 		return twoBedroomPrice;
 	}
+	
+	/**
+	 * 
+	 * @param twoBedroomPrice ZIP code's average price for two bedroom homes
+	 */
+	public void setTwoBedroomPrice(Integer twoBedroomPrice) {
+		this.twoBedroomPrice = twoBedroomPrice;
+	}
 
 	/**
 	 * @return ZIP code's average price for three bedroom homes
@@ -58,12 +111,77 @@ public class ZipCode {
 	public int getThreeBedroomPrice() {
 		return threeBedroomPrice;
 	}
+	
+	/**
+<<<<<<< Updated upstream
+	 * @return ZIP code's average price for four bedroom homes
+	 */
+	public int getFourBedroomPrice() {
+		return fourBedroomPrice;
+	}
+
+	
+	/**
+	 * @return ZIP code's average price for five bedroom homes
+	 */
+	public int getFiveBedroomPrice() {
+		return fiveBedroomPrice;
+	}
+
+=======
+	 * 
+	 * @param threeBedroomPrice ZIP code's average price for three bedroom homes
+	 */
+	public void setThreeBedroomPrice(Integer threeBedroomPrice) {
+		this.threeBedroomPrice = threeBedroomPrice;
+	}
+	
+	/**
+	 * 
+	 * @return ZIP code's average price for four bedroom homes
+	 */
+	public Integer getFourBedroomPrice() {
+		return fourBedroomPrice;
+	}
+
+	/**
+	 * 
+	 * @param fourBedroomPrice ZIP code's average price for four bedroom homes
+	 */
+	public void setFourBedroomPrice(Integer fourBedroomPrice) {
+		this.fourBedroomPrice = fourBedroomPrice;
+	}
+
+	/**
+	 * 
+	 * @return ZIP code's average price for five plus bedroom homes
+	 */
+	public Integer getFivePlusBedroomPrice() {
+		return fivePlusBedroomPrice;
+	}
+
+	/**
+	 * 
+	 * @param fivePlusBedroomPrice ZIP code's average price for five plus bedroom homes
+	 */
+	public void setFivePlusBedroomPrice(Integer fivePlusBedroomPrice) {
+		this.fivePlusBedroomPrice = fivePlusBedroomPrice;
+	}
+>>>>>>> Stashed changes
 
 	/**
 	 * @return ZIP code's average monthly precipitation
 	 */
 	public double getMonthlyPrecipitation() {
 		return monthlyPrecipitation;
+	}
+	
+	/**
+	 * 
+	 * @param precipitation ZIP code's average monthly precipitation
+	 */
+	public void setMonthlyPrecipitation(double precipitation) {
+		this.monthlyPrecipitation = precipitation;
 	}
 
 	/**
@@ -72,12 +190,28 @@ public class ZipCode {
 	public double getDailyTemperature() {
 		return dailyTemperature;
 	}
+	
+	/**
+	 * 
+	 * @param temperature ZIP code's average daily temperature
+	 */
+	public void setDailyTemperature(double temperature) {
+		this.dailyTemperature = temperature;
+	}
 
 	/**
 	 * @return ZIP code's average annual days below freezing
 	 */
 	public int getAnnualDaysBelowFreezing() {
 		return annualDaysBelowFreezing;
+	}
+	
+	/**
+	 * 
+	 * @param daysBelowFreezing ZIP code's average annual days below freezing
+	 */
+	public void setAnnualDaysBelowFreezing(int daysBelowFreezing) {
+		this.annualDaysBelowFreezing = daysBelowFreezing;
 	}
 	
 	
