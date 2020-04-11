@@ -79,4 +79,3 @@ public class HomeMatchScorer {
 		
 		//return hashMap
 	}
-}
