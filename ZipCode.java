@@ -179,5 +179,15 @@ public class ZipCode {
 	}
 	
 	
+	public int getPriceByRooms(int nBedRooms){
+		switch(nBedRooms){
+			case 1: return this.getOneBedroomPrice();
+			case 2: return this.getTwoBedroomPrice();
+			case 3: return this.getThreeBedroomPrice();
+			case 4: return this.getFourBedroomPrice();
+			case 5: return this.getFivePlusBedroomPrice();
+		}
+		return this.getHomePriceOverall();
+	}
 	
 }
