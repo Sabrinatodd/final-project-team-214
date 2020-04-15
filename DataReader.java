@@ -9,6 +9,7 @@ import java.util.*;
  */
 public class DataReader {
 	private HashMap<String, ZipCode> homeMap = new HashMap<>();
+	private HashMap<String, DailyWeather> weatherMap = new HashMap<>();
 
 	/**
 	 * This method parses through a file and logs home prices
@@ -44,6 +45,65 @@ public class DataReader {
 		*/
 	}
 	
+	public void readWeatherDataFiles(String fileName,int temperatureType){
+		File f = new File(fileName);
+		try {
+			Scanner fileReader = new Scanner(f);
+			if (fileReader.hasNextLine())
+				fileReader.nextLine();
+			while (fileReader.hasNextLine()) {
+				calculateAverage(fileReader.nextLine(),temperatureType);
+			}
+			fileReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Could not find or read file");
+		}
+	}
+	
+	private void calculateAverage(String nextLine, int temperatureType) {
+		// TODO Auto-generated method stub
+		String[] lineElements = nextLine.split(",");
+		int validEntries = 0;
+		double total = 0;
+		for(int i=1 ;i < lineElements.length ;i++){
+			if(!lineElements[i].trim().isEmpty()){
+				try{
+					total+= Double.parseDouble(lineElements[i]);
+					validEntries++;
+				}
+				catch(Exception ex) {}
+				
+			}
+		}
+		double average = total / validEntries;
+		String key =  lineElements[0];
+		DailyWeather dailyWeather = new DailyWeather("", "",key, 0, 0, 0, 0);
+		if(weatherMap.containsKey(key))
+			dailyWeather = weatherMap.get(key);		
+	
+		switch(temperatureType){
+			case 1: dailyWeather.setTempMin(average); break;
+			case 2: dailyWeather.setTempMax(average); break;
+			case 3: dailyWeather.setSnow(average); break;
+			case 4: dailyWeather.setPrecipitation(average); break;
+		}
+		weatherMap.put(key, dailyWeather);
+	
+	}
+
+	public void readWeatherData()
+	{
+		readWeatherDataFiles("!CA_TMIN.csv",1);
+		readWeatherDataFiles("!CA_TMAX.csv",2);
+		readWeatherDataFiles("!CA_SNOW.csv",3);
+		readWeatherDataFiles("!CA_PRCP.csv",4);
+	}
+	
+	public static void main(String [] args){
+		DataReader reader = new DataReader();
+		reader.readWeatherData();
+		
+	}
 
 	/**
 	 * This method parses through a file of census data and
@@ -97,6 +157,8 @@ public class DataReader {
 			}			
 			homeMap.put(key, zip);
 		}
+		
+		
 	}
 	
 	/**
