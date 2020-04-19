@@ -13,6 +13,8 @@ public class DailyWeather {
 	private double precipitation;
 	private double snow;
 	
+	public DailyWeather() {}
+	
 	/**
 	 * Constructor for DailyWeather
 	 * @param date
