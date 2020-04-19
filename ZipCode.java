@@ -13,7 +13,7 @@ public class ZipCode {
 	
 	private double monthlyPrecipitation;
 	private double dailyTemperature;
-	private int annualDaysBelowFreezing;
+	private double annualDaysBelowFreezing;
 
 	
 	/**
@@ -27,7 +27,7 @@ public class ZipCode {
 	 * @param temperature average daily temperature
 	 * @param daysBelowFreezing number of days below freezing temperature
 	 */
-	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fivePlusBedroom, double precipitation, double temperature, int daysBelowFreezing) {
+	public ZipCode(int homePrice, int oneBedroom, int twoBedroom, int threeBedroom, int fourBedroom, int fivePlusBedroom, double precipitation, double temperature, double daysBelowFreezing) {
 		this.homePriceOverall = homePrice;
 		this.oneBedroomPrice = oneBedroom;
 		this.twoBedroomPrice = twoBedroom;
@@ -166,7 +166,7 @@ public class ZipCode {
 	/**
 	 * @return ZIP code's average annual days below freezing
 	 */
-	public int getAnnualDaysBelowFreezing() {
+	public double getAnnualDaysBelowFreezing() {
 		return annualDaysBelowFreezing;
 	}
 	
@@ -174,7 +174,7 @@ public class ZipCode {
 	 * 
 	 * @param daysBelowFreezing ZIP code's average annual days below freezing
 	 */
-	public void setAnnualDaysBelowFreezing(int daysBelowFreezing) {
+	public void setAnnualDaysBelowFreezing(double daysBelowFreezing) {
 		this.annualDaysBelowFreezing = daysBelowFreezing;
 	}
 	
