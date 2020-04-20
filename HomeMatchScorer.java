@@ -1,4 +1,4 @@
-import java.util.*;
+ import java.util.*;
 
 /**
  * This class will be used  to take user input on their home
@@ -47,28 +47,25 @@ public class HomeMatchScorer {
 	 * for temperature in a given area throughout the year
 	 * @return double representing the score of a zip code based on the user's preferred temperature
 	 */
-	public double scoreTemperatureRequirements(ArrayList<DailyWeather> cleanedWeatherData, double preferredTemperate) {
+	public HashMap<String, Double> scoreTemperatureRequirements(double preferredTemperature) {
 		//determine the average daily temperature by finding the
 		//median between the yearly min and max
 		
 		//score Zip Codes based on how closely they score to the user's provided
 		//temperature preference
-		
-		int nCount = 0;
-		int total = 0;
-
-		for( DailyWeather weatherData :cleanedWeatherData){
-			double temperature = (weatherData.getTempMin() + weatherData.getTempMax()) / 2;
-			if(temperature <= preferredTemperate){
-				total += temperature;
-				nCount++;
+		HashMap<String, Double> temperatureScores = new HashMap<String, Double>();
+		for(String zipCode : hashOfAllCleanedData.keySet()) {
+			DataBook allData = hashOfAllCleanedData.get(zipCode);
+			double score = 0.0;
+			if(allData.getDailyTemperature()  <= preferredTemperature) {
+			
+				score = 1 - (allData.getDailyTemperature()  / preferredTemperature);
 			}
+			
+			temperatureScores.put(zipCode, score);
 		}
-		double averageTemperature  =  total / nCount;
 		
-		// Add score logic
-		
-		return averageTemperature;
+		return temperatureScores;
 	}
 	
 	/**
@@ -76,7 +73,7 @@ public class HomeMatchScorer {
 	 * for precipitation in a given area
 	 * @return double representing the score of a zip code based on the user's preferred precipitation levels
 	 */
-	public double scorePrecipitationRequirements(ArrayList<DailyWeather>cleanedWeatherData,double preferredPrecipitation) {
+	public HashMap<String, Double> scorePrecipitationRequirements(double preferredPrecipitation) {
 		
 		//determine the average daily temperature by finding the
 		//median between the yearly min and max
@@ -84,21 +81,19 @@ public class HomeMatchScorer {
 		//score Zip Codes based on how closely they score to the user's provided
 		//temperature preference
 		
-		int nCount = 0;
-		int total = 0;
-
-		for( DailyWeather weatherData :cleanedWeatherData){
-			double precipitation = weatherData.getPrecipitation();
-			if(precipitation <= preferredPrecipitation){
-				total += precipitation;
-				nCount++;
+		HashMap<String, Double> precipitationScores = new HashMap<String, Double>();
+		for(String zipCode : hashOfAllCleanedData.keySet()) {
+			DataBook allData = hashOfAllCleanedData.get(zipCode);
+			double score = 0.0;
+			if(allData.getMonthlyPrecipitation()  <= preferredPrecipitation) {
+			
+				score = 1 - (allData.getMonthlyPrecipitation()  / preferredPrecipitation);
 			}
-		}
-		double averagePrecipitation  =  total / nCount;
-		
-		// Add score logic
-		
-		return averagePrecipitation;
+			
+			precipitationScores.put(zipCode, score);
+		}		
+		return precipitationScores;
+	
 	}
 	
 	/**
@@ -110,7 +105,7 @@ public class HomeMatchScorer {
 	 * @param precipitationScore the score assigned to the zip code based on the user's preferred precipitation levels
 	 * @return total score across all factors for a given zip code
 	 */
-	public double totalAreaScore(DataBook zip, double homeValueScore, double temperatureScore, double precipitationScore) {
+	public double totalAreaScore(double homeValueScore, double temperatureScore, double precipitationScore) {
 		//take an average of the home value score, temperature score, and
 		//precipitation score to provide an overall score for a zip code
 		return (homeValueScore + temperatureScore + precipitationScore)/ 3;
@@ -123,7 +118,7 @@ public class HomeMatchScorer {
 	 * @param allData HashMap of all data for each Zip Code
 	 * @return HashMap that maps and ranks overall scores to each Zip Code in CA
 	 */
-	public HashMap<String, Double> topZipCodes(HashMap<String, DataBook> allData, ArrayList<DailyWeather>cleanedWeatherData){
+	public HashMap<String, Double> topZipCodes(int userPreferredBedrooms, long userBudget,double preferredTemperature,double preferredPrecipitation ){
 		//for each zip code in provided hashmap, collect an totalAreaScore
 		
 		//add Zip Code and total score to HashMap to be returned
@@ -131,11 +126,42 @@ public class HomeMatchScorer {
 		//once all Zip Codes are scored, rank and sort Zip Codes
 		
 		//return hashMap
+		HashMap<String, Double> totalScoresMap = new HashMap<String, Double>();
 		
-		HashMap<String, Double>  scoreMap = new HashMap<>();
-		for(String zipcode : allData.keySet()){
-			double totalScore = totalAreaScore(allData.get(zipcode).getHomePriceOverall() , cleanedWeatherData.get(index) , precipitationScore);
+		HashMap<String, Double> homeScores = scoreHomeValue(userPreferredBedrooms, userBudget);
+		HashMap<String, Double> temperatureScores = scoreTemperatureRequirements(preferredTemperature);
+		HashMap<String, Double> precipitationScores = scorePrecipitationRequirements(preferredPrecipitation);
+		
+		for(String zipCode : hashOfAllCleanedData.keySet()) {
+			double totalScore = totalAreaScore(homeScores.get(zipCode) , temperatureScores.get(zipCode) , precipitationScores.get(zipCode) );
+			totalScoresMap.put(zipCode, totalScore);
 		}
+		
+		return sortByValue(totalScoresMap);
+	
 	}
+	
+	 public  HashMap<String, Double> sortByValue(HashMap<String, Double> hm) 
+	    { 
+	        // Create a list from elements of HashMap 
+	        List<Map.Entry<String, Double> > list = 
+	               new LinkedList<Map.Entry<String, Double> >(hm.entrySet()); 
+	  
+	        // Sort the list 
+	        Collections.sort(list, new Comparator<Map.Entry<String, Double> >() { 
+	            public int compare(Map.Entry<String, Double> o1,  
+	                               Map.Entry<String, Double> o2) 
+	            { 
+	                return (o1.getValue()).compareTo(o2.getValue()); 
+	            } 
+	        }); 
+	          
+	        // put data from sorted list to hashmap  
+	        HashMap<String, Double> temp = new LinkedHashMap<String, Double>(); 
+	        for (Map.Entry<String, Double> aa : list) { 
+	            temp.put(aa.getKey(), aa.getValue()); 
+	        } 
+	        return temp; 
+	    } 
 }
 
