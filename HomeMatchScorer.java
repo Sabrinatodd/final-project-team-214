@@ -1,4 +1,4 @@
- import java.util.*;
+import java.util.*;
 
 /**
  * This class will be used  to take user input on their home
@@ -25,8 +25,6 @@ public class HomeMatchScorer {
 			DataBook allData = hashOfAllCleanedData.get(zipCode);
 			int homePrice = allData.getPriceByRooms(userPreferredBedrooms);
 			double score = 0.0;
-			
-	
 			if(homePrice <= userBudget) {
 				//When all other scores are equal, we would like to score
 				//lower cost zip codes (i.e. those with a larger difference
@@ -58,10 +56,8 @@ public class HomeMatchScorer {
 			DataBook allData = hashOfAllCleanedData.get(zipCode);
 			double score = 0.0;
 			if(allData.getDailyTemperature()  <= preferredTemperature) {
-			
 				score = 1 - (allData.getDailyTemperature()  / preferredTemperature);
 			}
-			
 			temperatureScores.put(zipCode, score);
 		}
 		
@@ -96,6 +92,67 @@ public class HomeMatchScorer {
 	
 	}
 	
+	public HashMap<String, Double> scoreTotalPopulation(double preferredPopulation) {
+			
+			//score Zip Codes based on how closely they score to the user's provided
+			//preferred population
+			
+			HashMap<String, Double> populationScores = new HashMap<String, Double>();
+			for(String zipCode : hashOfAllCleanedData.keySet()) {
+				DataBook allData = hashOfAllCleanedData.get(zipCode);
+				double score = 0.0;
+				if(allData.getTotalPopulation()  <= preferredPopulation) {
+				
+					score = 1 - (allData.getTotalPopulation()  / preferredPopulation);
+				}
+				
+				populationScores.put(zipCode, score);
+			}		
+			return populationScores;
+		
+	}
+	
+	public HashMap<String, Double> scoreMedianAge(double preferredMedianAge) {
+		
+		//score Zip Codes based on how closely they score to the user's provided
+		//preferred median age
+		
+		HashMap<String, Double> medianAgeScores = new HashMap<String, Double>();
+		for(String zipCode : hashOfAllCleanedData.keySet()) {
+			DataBook allData = hashOfAllCleanedData.get(zipCode);
+			double score = 0.0;
+			if(allData.getTotalPopulation()  <= preferredMedianAge) {
+			
+				score = 1 - (allData.getMedianAge()  / preferredMedianAge);
+			}
+			
+			medianAgeScores.put(zipCode, score);
+		}		
+		return medianAgeScores;
+	
+	}
+	
+	public HashMap<String, Double> scoreAvgHouseHoldSize(double preferredAvgHouseHoldSize) {
+		
+		//score Zip Codes based on how closely they score to the user's provided
+		//preferred average house hold size
+		
+		HashMap<String, Double> AvgHouseHoldSizeScores = new HashMap<String, Double>();
+		for(String zipCode : hashOfAllCleanedData.keySet()) {
+			DataBook allData = hashOfAllCleanedData.get(zipCode);
+			double score = 0.0;
+			if(allData.getTotalPopulation()  <= preferredAvgHouseHoldSize) {
+			
+				score = 1 - (allData.getAverageHouseholdSize() / preferredAvgHouseHoldSize);
+			}
+			
+			AvgHouseHoldSizeScores.put(zipCode, score);
+		}		
+		return AvgHouseHoldSizeScores;
+	
+	}
+	
+	
 	/**
 	 * this method provides a total score for a zip code based on its score
 	 * across the home value, temperature and precipitation preferences set
@@ -105,10 +162,12 @@ public class HomeMatchScorer {
 	 * @param precipitationScore the score assigned to the zip code based on the user's preferred precipitation levels
 	 * @return total score across all factors for a given zip code
 	 */
-	public double totalAreaScore(double homeValueScore, double temperatureScore, double precipitationScore) {
+	public double totalAreaScore(double homeValueScore, double temperatureScore, double precipitationScore,
+			double totalPopulationScore, double medianAgeScore, double avgHouseHoldSizeScore) {
 		//take an average of the home value score, temperature score, and
 		//precipitation score to provide an overall score for a zip code
-		return (homeValueScore + temperatureScore + precipitationScore)/ 3;
+		return (homeValueScore + temperatureScore + precipitationScore + 
+				totalPopulationScore + medianAgeScore + avgHouseHoldSizeScore )/ 6;
 	}
 	
 	/**
@@ -118,27 +177,29 @@ public class HomeMatchScorer {
 	 * @param allData HashMap of all data for each Zip Code
 	 * @return HashMap that maps and ranks overall scores to each Zip Code in CA
 	 */
-	public HashMap<String, Double> topZipCodes(int userPreferredBedrooms, long userBudget,double preferredTemperature,double preferredPrecipitation ){
-		//for each zip code in provided hashmap, collect an totalAreaScore
+	public HashMap<String, Double> topZipCodes(int userPreferredBedrooms, long userBudget,double preferredTemperature,double preferredPrecipitation,
+			double preferredTotalPopulation,double preferredMedianAge,double preferredAvgHouseHoldSize){
 		
-		//add Zip Code and total score to HashMap to be returned
-		
-		//once all Zip Codes are scored, rank and sort Zip Codes
-		
-		//return hashMap
 		HashMap<String, Double> totalScoresMap = new HashMap<String, Double>();
-		
 		HashMap<String, Double> homeScores = scoreHomeValue(userPreferredBedrooms, userBudget);
 		HashMap<String, Double> temperatureScores = scoreTemperatureRequirements(preferredTemperature);
 		HashMap<String, Double> precipitationScores = scorePrecipitationRequirements(preferredPrecipitation);
+		HashMap<String, Double> poulationScores = scoreTotalPopulation(preferredTotalPopulation);
+		HashMap<String, Double> medianAgeScores =  scoreMedianAge(preferredMedianAge);
+		HashMap<String, Double> avgHouseHoldSizeScores = scoreAvgHouseHoldSize(preferredAvgHouseHoldSize);
+	
+		//for each zip code in provided hashmap, collect an totalAreaScore
 		
 		for(String zipCode : hashOfAllCleanedData.keySet()) {
-			double totalScore = totalAreaScore(homeScores.get(zipCode) , temperatureScores.get(zipCode) , precipitationScores.get(zipCode) );
+			double totalScore = totalAreaScore(homeScores.get(zipCode) , temperatureScores.get(zipCode) , precipitationScores.get(zipCode),
+					poulationScores.get(zipCode), medianAgeScores.get(zipCode), avgHouseHoldSizeScores.get(zipCode));
 			totalScoresMap.put(zipCode, totalScore);
 		}
 		
+		//add Zip Code and total score to HashMap to be returned		
+		//once all Zip Codes are scored, rank and sort Zip Codes
+		//return hashMap
 		return sortByValue(totalScoresMap);
-	
 	}
 	
 	 public  HashMap<String, Double> sortByValue(HashMap<String, Double> hm) 
@@ -164,4 +225,3 @@ public class HomeMatchScorer {
 	        return temp; 
 	    } 
 }
-
