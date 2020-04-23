@@ -1,4 +1,11 @@
- 
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.DocumentFilter;
+
 /**
  * This class displays the GUI for the housing search application
  * 
@@ -80,8 +87,14 @@ public class HousingGUI extends javax.swing.JFrame {
         nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 convertButtonActionPerformed(evt);
-            }
+            }      
         });
+        
+       
+        
+        
+        
+        
         
         //Determine page layouts
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,27 +189,37 @@ public class HousingGUI extends javax.swing.JFrame {
         );
         pack();
     }
+    
+    
+
  
     /**
      * Our housing application goes here. 
      * @param evt
      */
     private void convertButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        int maxHomeValue = (int)(Double.parseDouble(maxHomePrice.getText()));
-        int prefBedrooms = (int)(Double.parseDouble(numberBedrooms.getText()));
-        int prefTemp = (int)(Double.parseDouble(prefDailyTemp.getText()));
-        int prefPrecip = (int)(Double.parseDouble(prefMonthlyPrecip.getText()));
-        int maxFreezing = (int)(Double.parseDouble(maxDaysBelowFreezing.getText()));
-        int prefTown = (int)(Double.parseDouble(prefTownSize.getText()));
-        int prefAge = (int)(Double.parseDouble(prefMedianAge.getText()));
-        int prefHouse = (int)(Double.parseDouble(prefHouseSize.getText()));       
+    	if (!isNumber(maxHomePrice.getText()) || !isNumber(numberBedrooms.getText()) || !isNumber(prefDailyTemp.getText())
+    			|| !isNumber(prefMonthlyPrecip.getText()) || !isNumber(maxDaysBelowFreezing.getText()) || !isNumber(prefTownSize.getText())
+    			|| !isNumber(prefMedianAge.getText()) || !isNumber(prefHouseSize.getText())) {
+    		JOptionPane.showMessageDialog(null, "You must enter an integer. All fields must be filled.", "Please insert another number.", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	
+    	else {	
+    		int maxHomeValue = (int)(Double.parseDouble(maxHomePrice.getText()));
+    		int prefBedrooms = (int)(Double.parseDouble(numberBedrooms.getText()));
+    		int prefTemp = (int)(Double.parseDouble(prefDailyTemp.getText()));
+    		int prefPrecip = (int)(Double.parseDouble(prefMonthlyPrecip.getText()));
+    		int maxFreezing = (int)(Double.parseDouble(maxDaysBelowFreezing.getText()));
+    		int prefTown = (int)(Double.parseDouble(prefTownSize.getText()));
+    		int prefAge = (int)(Double.parseDouble(prefMedianAge.getText()));
+    		int prefHouse = (int)(Double.parseDouble(prefHouseSize.getText()));               
+       
+    		UserInput ui = new UserInput(maxHomeValue, prefBedrooms,prefTemp, prefPrecip, maxFreezing, prefTown, prefAge, prefHouse); 
         
+    		int zipCodes = maxHomeValue + prefBedrooms + prefTemp + prefPrecip + maxFreezing + prefTown + prefAge + prefHouse;
         
-        UserInput ui = new UserInput(maxHomeValue, prefBedrooms,prefTemp, prefPrecip, maxFreezing, prefTown, prefAge, prefHouse); 
-        
-        int zipCodes = maxHomeValue + prefBedrooms + prefTemp + prefPrecip + maxFreezing + prefTown + prefAge + prefHouse;
-        
-        listOfZipCodes.setText("We recommend these ZIP codes: " + zipCodes);
+    		listOfZipCodes.setText("We recommend these ZIP codes: " + zipCodes);        
+    	}
     }
      
     
@@ -210,6 +233,16 @@ public class HousingGUI extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    private static boolean isNumber(String n) {
+		try {
+			Integer.parseInt(n);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
      
     // Variables declaration 
     private javax.swing.JButton nextButton;
@@ -239,8 +272,8 @@ public class HousingGUI extends javax.swing.JFrame {
     private javax.swing.JTextField prefHouseSize;
     private javax.swing.JLabel houseSizeLabel;
     
-
-
-     
+ 
+    
      
 }
+
