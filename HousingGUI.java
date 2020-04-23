@@ -67,7 +67,7 @@ public class HousingGUI extends javax.swing.JFrame {
         //Labels
         priceLabel.setText("Maximum Home Price ($)");
         bedroomLabel.setText("Preferred Number of Bedroms (1-5)");
-        tempLabel.setText("Preffered Average Daily Temperature");
+        tempLabel.setText("Preferred Average Daily Temperature");
         precipLabel.setText("Preferred Monthly Precipitation (in)");
         freezingLabel.setText("Maximum Annual Days Below Freezing");
         townSizeLabel.setText("Preferred Town Size (population)");
