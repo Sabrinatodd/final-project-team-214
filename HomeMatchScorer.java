@@ -189,10 +189,12 @@ public class HomeMatchScorer {
 		 String finalList = "";
 		 for(int i = 0; i < numberOfScores; i++) {
 			 int listSize = allScores.size();
-			 String score = i+1 + ". " + allScores.get(listSize - (1 + i));
+			 //String score = i+1 + ". " + allScores.get(listSize - (1 + i));
+			 String score = allScores.get(listSize - (1 + i));
 			 list.add(score);
 		 }
-		 finalList = list.get(0) + "\n" + list.get(1) + "\n" + list.get(2) + "\n" + list.get(3) + "\n" + list.get(4);
+		 //finalList = list.get(0) + "\n" + list.get(1) + "\n" + list.get(2) + "\n" + list.get(3) + "\n" + list.get(4);
+		 finalList = list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3) + ", " + list.get(4);
 		 return finalList;
 	 }
 	 

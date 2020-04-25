@@ -72,7 +72,7 @@ public class HousingGUI extends javax.swing.JFrame {
  
         //Default ops
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("House Search Tool");
+        setTitle("Home Finder");
  
         //Labels
         priceLabel.setText("Maximum Home Price ($)");
@@ -83,7 +83,7 @@ public class HousingGUI extends javax.swing.JFrame {
         townSizeLabel.setText("Preferred Town Size (population)");
         ageLabel.setText("Preferred Median Age");
         houseSizeLabel.setText("Preferred Average Household Size");
-        listOfZipCodes.setText("We will display your list of ZIP codes here.");
+        listOfZipCodes.setText("");
 
         // Next button action listener
         nextButton.setText("Next");
@@ -206,6 +206,7 @@ public class HousingGUI extends javax.swing.JFrame {
     	}
     	
     	else {	
+    		//store user input
     		double maxHomeValue = (int)(Double.parseDouble(maxHomePrice.getText()));
     		int prefBedrooms = (int)(Double.parseDouble(numberBedrooms.getText()));
     		double prefTemp = (int)(Double.parseDouble(prefDailyTemp.getText()));
@@ -214,12 +215,19 @@ public class HousingGUI extends javax.swing.JFrame {
     		double prefTown = (int)(Double.parseDouble(prefTownSize.getText()));
     		double prefAge = (int)(Double.parseDouble(prefMedianAge.getText()));
     		double prefHouse = (int)(Double.parseDouble(prefHouseSize.getText()));               
+    		 
+    		//Run Compile to Compile all Data
     		DataCompiler dc = new DataCompiler();
     		HashMap<String, DataBook> allData = dc.compile();
+    		
+    		//Pass location data to scorer to score against user input
     		HomeMatchScorer hms = new HomeMatchScorer(allData);
     		ArrayList<String> topMatches = hms.generateTopZipCode(prefBedrooms, maxHomeValue, prefTemp, prefPrecip, maxFreezing, prefTown, prefAge, prefHouse);
     		String finalList = hms.getTopScores(topMatches, 5);    		
-    		listOfZipCodes.setText(finalList);      		
+    		
+    		//Print Final Output of Zip Codes to New Frame
+    		new EndFrame(finalList);
+   		
     	}
     }
      
@@ -276,10 +284,6 @@ public class HousingGUI extends javax.swing.JFrame {
     private javax.swing.JLabel ageLabel;
 
     private javax.swing.JTextField prefHouseSize;
-    private javax.swing.JLabel houseSizeLabel;
-    
- 
-    
-     
+    private javax.swing.JLabel houseSizeLabel;     
 }
 

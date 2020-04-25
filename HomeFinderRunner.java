@@ -4,8 +4,6 @@
  */
 public class HomeFinderRunner {
 	public static void main(String[] args) {
-		HomeFinder hf = new HomeFinder();
-		hf.run();
-		System.out.println("Finished!");
+		new GUIRunner();
 	}
 }
