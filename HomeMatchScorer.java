@@ -15,6 +15,9 @@ public class HomeMatchScorer {
 	HashMap<String, DataBook> hashOfAllCleanedData;
 	//UserInput() userPreferences;
 	
+	
+
+	
 	public HomeMatchScorer(HashMap<String, DataBook> hashOfAllDataByZip) {
 		this.hashOfAllCleanedData = hashOfAllDataByZip;
 	}
@@ -172,6 +175,27 @@ public class HomeMatchScorer {
 		 }
 	 }
 	 
+
+	 /**
+	  * Given a sorted ArrayList of Strings, this method returns the top 
+	  * n number of Strings from the bottom of the list. This method assumes
+	  * the that the list is ordered smallest to largest. 
+	  * @param allScores
+	  * @param numberOfScores
+	  * @return
+	  */
+	 public String getTopScores(ArrayList<String> allScores, int numberOfScores) {
+		 ArrayList<String> list = new ArrayList<String>();
+		 String finalList = "";
+		 for(int i = 0; i < numberOfScores; i++) {
+			 int listSize = allScores.size();
+			 String score = i+1 + ". " + allScores.get(listSize - (1 + i));
+			 list.add(score);
+		 }
+		 finalList = list.get(0) + "\n" + list.get(1) + "\n" + list.get(2) + "\n" + list.get(3) + "\n" + list.get(4);
+		 return finalList;
+	 }
+	 
 	 public static void main(String[] args) {
 		DataCompiler dc = new DataCompiler();
 		HashMap<String, DataBook> allData = dc.compile();
@@ -179,8 +203,9 @@ public class HomeMatchScorer {
 		
 		//HashMap<String, Double> topMatches = s.generateTopZipCode(2, 650000.0, 67.0, 2.2, 3.0, 500000.0, 42.0, 1.7);
 		ArrayList<String> topMatches = hms.generateTopZipCode(2, 330000.0, 67.0, 2.2, 3.0, 80000.0, 42.0, 1.7);
-		hms.prettyPrintScores(topMatches, 5);
-		
+		//hms.prettyPrintScores(topMatches, 5);
+		String finalList = hms.getTopScores(topMatches, 5);
+		System.out.println(finalList);
 		
 	}
 }
