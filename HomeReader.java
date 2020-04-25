@@ -126,9 +126,9 @@ public class HomeReader extends DataReader{
 		if (lineElements[3].equalsIgnoreCase("CA")) {
 			String zipCode = lineElements[1];
 			
-			// Get the 2019 Zillow Average Home Value for a home with
+			//Get the Zillow Average Home Value for at the end of 2019
 			ArrayList<String> homeValue = new ArrayList<String>();
-			homeValue.add(lineElements[293]);
+			homeValue.add(lineElements[291]);
 			
 			//insert it into a hashmap to be returned
 			homeData.put(zipCode, homeValue);
