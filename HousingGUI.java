@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -90,11 +93,7 @@ public class HousingGUI extends javax.swing.JFrame {
             }      
         });
         
-       
-        
-        
-        
-        
+         
         
         //Determine page layouts
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -194,7 +193,9 @@ public class HousingGUI extends javax.swing.JFrame {
 
  
     /**
-     * Our housing application goes here. 
+     * When the user hits next, the housing program runs to return 
+     * the user the final list of ZIP codes based on their inputs
+     * in the text fields above
      * @param evt
      */
     private void convertButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,25 +206,26 @@ public class HousingGUI extends javax.swing.JFrame {
     	}
     	
     	else {	
-    		int maxHomeValue = (int)(Double.parseDouble(maxHomePrice.getText()));
+    		double maxHomeValue = (int)(Double.parseDouble(maxHomePrice.getText()));
     		int prefBedrooms = (int)(Double.parseDouble(numberBedrooms.getText()));
-    		int prefTemp = (int)(Double.parseDouble(prefDailyTemp.getText()));
-    		int prefPrecip = (int)(Double.parseDouble(prefMonthlyPrecip.getText()));
-    		int maxFreezing = (int)(Double.parseDouble(maxDaysBelowFreezing.getText()));
-    		int prefTown = (int)(Double.parseDouble(prefTownSize.getText()));
-    		int prefAge = (int)(Double.parseDouble(prefMedianAge.getText()));
-    		int prefHouse = (int)(Double.parseDouble(prefHouseSize.getText()));               
-       
-    		UserInput ui = new UserInput(maxHomeValue, prefBedrooms,prefTemp, prefPrecip, maxFreezing, prefTown, prefAge, prefHouse); 
-        
-    		int zipCodes = maxHomeValue + prefBedrooms + prefTemp + prefPrecip + maxFreezing + prefTown + prefAge + prefHouse;
-        
-    		listOfZipCodes.setText("We recommend these ZIP codes: " + zipCodes);        
+    		double prefTemp = (int)(Double.parseDouble(prefDailyTemp.getText()));
+    		double prefPrecip = (int)(Double.parseDouble(prefMonthlyPrecip.getText()));
+    		double maxFreezing = (int)(Double.parseDouble(maxDaysBelowFreezing.getText()));
+    		double prefTown = (int)(Double.parseDouble(prefTownSize.getText()));
+    		double prefAge = (int)(Double.parseDouble(prefMedianAge.getText()));
+    		double prefHouse = (int)(Double.parseDouble(prefHouseSize.getText()));               
+    		DataCompiler dc = new DataCompiler();
+    		HashMap<String, DataBook> allData = dc.compile();
+    		HomeMatchScorer hms = new HomeMatchScorer(allData);
+    		ArrayList<String> topMatches = hms.generateTopZipCode(prefBedrooms, maxHomeValue, prefTemp, prefPrecip, maxFreezing, prefTown, prefAge, prefHouse);
+    		String finalList = hms.getTopScores(topMatches, 5);    		
+    		listOfZipCodes.setText(finalList);      		
     	}
     }
      
     
     /**
+     * Main method to test the GUI
      * @param args 
      */
     public static void main(String args[]) {
@@ -234,7 +236,11 @@ public class HousingGUI extends javax.swing.JFrame {
         });
     }
     
-    
+    /**
+     * Verifies if the input is an integer
+     * @param n user input
+     * @return boolean that is true if an integer, and false otherwise. 
+     */
     private static boolean isNumber(String n) {
 		try {
 			Integer.parseInt(n);
