@@ -3,12 +3,13 @@
 
 
 Please use the link below to see a general design flowchart for this program:
-   https://www.lucidchart.com/invitations/accept/d70fd723-9878-439f-a254-50cda1f92694 
+   https://www.lucidchart.com/documents/view/a110c72c-bc0b-496c-9ca9-3e61ece059b3/0_0 
+   
 
 # Prerequisites <br />
 The following items are required to effectively run this program: <br />
   *	Java SE <br />
-  *	Eclipse ID <br />
+  *	Eclipse IDE <br />
   *	JSON Jar File* <br />
 
 *The JSON Jar File is only required to run the WeatherAPI Class. To avoid long run-times, this method is not explicitly run from the main Runner class but can be run using the main method within. <br />
