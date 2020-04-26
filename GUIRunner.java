@@ -1,10 +1,6 @@
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.Image;
 import java.awt.event.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * The class provides the landing frame for our application and 
@@ -24,39 +20,36 @@ public class GUIRunner implements ActionListener {
 	 */
 	GUIRunner() {
 		
+		//Make Frame Visible
 		landingFrame.setSize(400, 400);
 		landingFrame.setVisible(true);
 		landingFrame.setLayout(null);
 		landingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		
-		/*
-		//Add Icon
-		try {
-			ImageIcon icon = new ImageIcon(new URL("https://im5.ezgif.com/tmp/ezgif-5-e8ecb9bb159c.png"));
-			landingFrame.setIconImage(icon.getImage());
-			
-			Image image =  icon.getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH);
-			ImageIcon scaledIcon = new ImageIcon(image);
-			JLabel iconLabel = new JLabel(scaledIcon);
-			landingFrame.add(iconLabel);
-			iconLabel.setBounds(130, 60, 80, 80);
-		} catch (MalformedURLException e) {
-		}
-		*/
+		//Set IconImage
+		ImageIcon icon = new ImageIcon("icon.png");
+		Image img = icon.getImage();
+		landingFrame.setIconImage(img);
 		
-		//Main Headline
+		//Add Icon Logo
+		JLabel iconLabel = new JLabel(new ImageIcon(img.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH)));
+		landingFrame.add(iconLabel);
+		iconLabel.setBounds(120, 30, 150, 150);
+		
+		//Add Header
 		title = new JLabel("Welcome to Home Finder!");
 		landingFrame.add(title);
-		title.setBounds(125, 30, 200, 30);
+		title.setBounds(125, 200, 200, 30);
 		
 		//Add Description
 		description = new JLabel("Let's find your next California home");
 		Font f = description.getFont();
 		description.setFont(f.deriveFont(f.getStyle() & ~Font.BOLD));
 		landingFrame.add(description);
-		description.setBounds(100, 150, 300, 30);
+		description.setBounds(100, 220, 300, 30);
 		
-		//Add Start Button
+		//Add Button
 		startButton = new JButton("Get Started!");
 		landingFrame.getContentPane().add(startButton);
 		startButton.setBounds(125, 300, 150, 30);

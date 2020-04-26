@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  */
 public class EndFrame {
-	JFrame f1 = new JFrame("Home Finder");
+	JFrame outputFrame = new JFrame("Home Finder");
 	JLabel header;
 	JButton b1;
 
@@ -17,14 +17,16 @@ public class EndFrame {
 	public EndFrame(String zipCodes) {
 		
 		//Create Frame
-		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f1.setVisible(true);
-		f1.setLayout(null);
-		f1.setSize(400, 400);
+		outputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		outputFrame.setVisible(true);
+		outputFrame.setLayout(null);
+		outputFrame.setSize(400, 400);
+		
+		outputFrame.setIconImage(new ImageIcon("icon.png").getImage());
 		
 		//Add Header
 		header = new JLabel("Here are your top Zip Code matches:");
-		f1.add(header);
+		outputFrame.add(header);
 		header.setBounds(100, 30, 250, 30);
 		
 		//get individual zip codes
@@ -36,7 +38,7 @@ public class EndFrame {
 			JLabel newLabel = new JLabel(zipCode);
 			Font f = newLabel.getFont();
 			newLabel.setFont(f.deriveFont(f.getStyle() & ~Font.BOLD));
-			f1.add(newLabel);
+			outputFrame.add(newLabel);
 			newLabel.setBounds(180, yLocation, 60, 30);
 			yLocation = yLocation + 20;
 		}		

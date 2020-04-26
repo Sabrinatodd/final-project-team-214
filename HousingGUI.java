@@ -1,6 +1,9 @@
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -73,10 +76,11 @@ public class HousingGUI extends javax.swing.JFrame {
         //Default ops
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home Finder");
+        
  
         //Labels
         priceLabel.setText("Maximum Home Price ($)");
-        bedroomLabel.setText("Preferred Number of Bedroms (1-5)");
+        bedroomLabel.setText("Preferred Number of Bedroms (1+)");
         tempLabel.setText("Preferred Average Daily Temperature");
         precipLabel.setText("Preferred Monthly Precipitation (in)");
         freezingLabel.setText("Maximum Annual Days Below Freezing");
@@ -187,6 +191,8 @@ public class HousingGUI extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         pack();
+        
+        setIconImage(new ImageIcon("icon.png").getImage());
     }
     
     
@@ -199,10 +205,27 @@ public class HousingGUI extends javax.swing.JFrame {
      * @param evt
      */
     private void convertButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	//Account for non-integer inputs
     	if (!isNumber(maxHomePrice.getText()) || !isNumber(numberBedrooms.getText()) || !isNumber(prefDailyTemp.getText())
     			|| !isNumber(prefMonthlyPrecip.getText()) || !isNumber(maxDaysBelowFreezing.getText()) || !isNumber(prefTownSize.getText())
     			|| !isNumber(prefMedianAge.getText()) || !isNumber(prefHouseSize.getText())) {
-    		JOptionPane.showMessageDialog(null, "You must enter an integer. All fields must be filled.", "Please insert another number.", JOptionPane.INFORMATION_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "You must enter an integer. All fields must be filled.", "Invalid Response", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	//Account for no budget
+    	else if(Integer.parseInt(maxHomePrice.getText()) == 0) {
+    		JOptionPane.showMessageDialog(null, "You've entered a budget of $0. Please add a budget for your home search.", "Invalid Response", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	//Account for zero values that don't make sense
+    	else if(Integer.parseInt(prefMedianAge.getText()) == 0 || Integer.parseInt(prefHouseSize.getText()) == 0
+    			|| Integer.parseInt(prefTownSize.getText()) == 0 || Integer.parseInt(numberBedrooms.getText()) == 0) {
+    		JOptionPane.showMessageDialog(null, "You've entered a value of 0 in a field where this is not possible. Please adjust.", "Invalid Response", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	//Account for negative values where N/A
+    	else if(Integer.parseInt(maxHomePrice.getText()) < 0 || Integer.parseInt(numberBedrooms.getText()) < 0 || Integer.parseInt(prefMonthlyPrecip.getText()) < 0
+    			|| Integer.parseInt(maxDaysBelowFreezing.getText()) < 0 || Integer.parseInt(prefTownSize.getText()) < 0 
+    			|| Integer.parseInt(prefMedianAge.getText()) < 0 || Integer.parseInt(prefHouseSize.getText()) < 0) {
+    		JOptionPane.showMessageDialog(null, "You've entered a negative value in a field where this is not possible. Please adjust.",
+    				"Invalid Response", JOptionPane.INFORMATION_MESSAGE);
     	}
     	
     	else {	
@@ -231,7 +254,7 @@ public class HousingGUI extends javax.swing.JFrame {
     	}
     }
      
-    
+   
     /**
      * Verifies if the input is an integer
      * @param n user input
@@ -272,6 +295,7 @@ public class HousingGUI extends javax.swing.JFrame {
     private javax.swing.JLabel ageLabel;
 
     private javax.swing.JTextField prefHouseSize;
-    private javax.swing.JLabel houseSizeLabel;     
+    private javax.swing.JLabel houseSizeLabel;
+
 }
 
