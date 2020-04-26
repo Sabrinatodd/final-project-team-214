@@ -10,7 +10,7 @@ import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 
 /**
- * This class displays the GUI for the housing search application
+ * This class displays the main GUI for the housing search application
  * 
  * @author michaelhoffmann johnconnolly sabrinatodd
  *
@@ -231,18 +231,6 @@ public class HousingGUI extends javax.swing.JFrame {
     	}
     }
      
-    
-    /**
-     * Main method to test the GUI
-     * @param args 
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HousingGUI().setVisible(true);
-            }
-        });
-    }
     
     /**
      * Verifies if the input is an integer

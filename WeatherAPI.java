@@ -20,10 +20,14 @@ public class WeatherAPI {
 	}
 	
 	
+
 	/**
-	 * Parse the JSON Output of the API to find weather data
-	 * @param jsonResponse
-	 * @return ArrayList of weather objects
+	 * This method parses the JSON output from the API call
+	 * to collect weather data for each available date.
+	 * @param jsonResponse the JSON output as a string from the API call
+	 * @param zip the zip code for which the data is being collected
+	 * @param dataType the type of weather data being collected
+	 * @return ArrayList of Doubles for every available day of data
 	 * @throws JSONException
 	 */
 	public ArrayList<Double> parseWeatherJSON(String jsonResponse, String zip, String dataType) throws JSONException {
@@ -66,7 +70,7 @@ public class WeatherAPI {
 	
 	/**
 	 * Makes the API call and returns the JSON result as a String
-	 * @param url
+	 * @param url the URL String for the API call
 	 * @return JSON Output of API as a String
 	 * @throws IOException
 	 */
@@ -99,6 +103,7 @@ public class WeatherAPI {
 	 * This method uses the NOAA API to collect weather data for
 	 * each Zip Code in California that has data available. Data
 	 * is collected for each day of the year for each Zip Code.
+	 * @param dataType the type of weather data being collected (i.e. TMAX, TMIN)
 	 * @return ArrayList of weather data for each Zip Code for each day of the year
 	 */
 	public HashMap<String, ArrayList<Double>> getWeatherData(String dataType) {
@@ -119,7 +124,7 @@ public class WeatherAPI {
 
 				// set API Parameters
 				String queryParams = "?datasetid=GHCND&locationid=ZIP:" + temporaryZip
-						+ "&startdate=2019-01-01&enddate=2019-12-31" + "&units=standard&limit=500&datatypeid="
+						+ "&startdate=2019-01-01&enddate=2019-12-31&units=standard&limit=500&datatypeid="
 						+ dataType;
 				String weatherDailiesURL = endPoint + path + queryParams;
 
@@ -160,14 +165,13 @@ public class WeatherAPI {
 	
 	
 	/**
-	 * This method cleans an ArrayList of weather data to make the 
-	 * data appropriate for one year intervals. This includes averaging
-	 * temperature fields and summing total days above or below certain 
-	 * precipitation and temperature thresholds. This method also cleans
-	 * Zip Codes that have missing or no weather data available  	 
-	 * @return ArrayList of weather data respective of the entire year
+	 * This method takes a HashMap of weather data stored by Zip Code
+	 * and prints it to a CSV File to be read for cleaning and output.
+	 * 
+	 * @param weatherData HashMap of all data values for a given zip code
+	 * @param dataType the type of data variable being printed (i.e. TMAX, TMIN)
 	 */
-	public void writeWeatherDataToFile(HashMap<String, ArrayList<Double>> weatherData, String weatherVariable){
+	public void writeWeatherDataToFile(HashMap<String, ArrayList<Double>> weatherData, String dataType){
 		HashMap<String, ArrayList<String>> tempMaxHash = new HashMap<String, ArrayList<String>>();
 		
 		//get the max temperature for each day for each zip code
@@ -187,8 +191,9 @@ public class WeatherAPI {
 			tempMaxHash.put(zip, dataPoints);
 		}
 
+		
 		try {
-			FileWriter fw = new FileWriter("!CA_" + weatherVariable + ".csv");
+			FileWriter fw = new FileWriter("!CA_" + dataType + ".csv");
 
 			try {
 				//add column headers
@@ -220,21 +225,31 @@ public class WeatherAPI {
 		}
 	}
 
-	//This is for testing purposes only. Can be deleted once operational.
+	/**
+	 * For submission, we chose not to run this class to avoid long run-times. 
+	 * In theory, this class could be called overnight to update data before
+	 * users interact with the rest of the program.
+	 * 
+	 * The main method within can be used to sample the functionality of this 
+	 * class
+	 */
 	public static void main(String[] args) {
 		WeatherAPI api = new WeatherAPI();
 		int counter = 0;
+		
+		//For each type of weather data
 		for(String dataType : api.weatherDataIDs) {
 			//get values
 			HashMap<String, ArrayList<Double>> weatherData = api.getWeatherData(dataType);
 			//print to file
 			api.writeWeatherDataToFile(weatherData, dataType);
 			
+			//move on to next dataType
 			counter++;
 			System.out.println("Process " + counter + " completed...");
 		}
 
-		System.out.println("Finished!");
+		System.out.println("Finished Gathering Weather Data!");
 	} 
 }
 	

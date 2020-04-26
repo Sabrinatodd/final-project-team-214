@@ -13,10 +13,15 @@ public class DailyWeather {
 	private double precipitation;
 	private double snow;
 	
+	/**
+	 * Empty/Default Constructor for when DailyWeather object
+	 * does not have known data upon being instantiated
+	 */
 	public DailyWeather() {}
 	
 	/**
-	 * Constructor for DailyWeather
+	 * Constructor for DailyWeather object where data
+	 * is known
 	 * @param date
 	 * @param station
 	 * @param zipCode

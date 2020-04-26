@@ -1,11 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class will be used to take user input on their home
@@ -17,7 +10,10 @@ public class HomeMatchScorer {
 	
 	
 
-	
+	/**
+	 * HomeMatchScorer Constructor
+	 * @param hashOfAllDataByZip HashMap of all cleaned location data organized by zip code.
+	 */
 	public HomeMatchScorer(HashMap<String, DataBook> hashOfAllDataByZip) {
 		this.hashOfAllCleanedData = hashOfAllDataByZip;
 	}
@@ -69,8 +65,6 @@ public class HomeMatchScorer {
 	 * @return A sorted ArrayList of Zip Codes from smallest scores
 	 * (worst) to largest scores (best)
 	 */
-	//public HashMap<String, Double> generateTopZipCode(int userPreferredBedrooms, double userBudget, double preferredTemperature, double preferredPrecipitation,
-	//		double preferredDaysFreezing, double preferredTotalPopulation, double preferredMedianAge, double preferredAvgHouseHoldSize){
 	public ArrayList<String> generateTopZipCode(int userPreferredBedrooms, double userBudget, double preferredTemperature, double preferredPrecipitation,
 				double preferredDaysFreezing, double preferredTotalPopulation, double preferredMedianAge, double preferredAvgHouseHoldSize){
 		
@@ -203,9 +197,7 @@ public class HomeMatchScorer {
 		HashMap<String, DataBook> allData = dc.compile();
 		HomeMatchScorer hms = new HomeMatchScorer(allData);
 		
-		//HashMap<String, Double> topMatches = s.generateTopZipCode(2, 650000.0, 67.0, 2.2, 3.0, 500000.0, 42.0, 1.7);
 		ArrayList<String> topMatches = hms.generateTopZipCode(2, 330000.0, 67.0, 2.2, 3.0, 80000.0, 42.0, 1.7);
-		//hms.prettyPrintScores(topMatches, 5);
 		String finalList = hms.getTopScores(topMatches, 5);
 		System.out.println(finalList);
 		

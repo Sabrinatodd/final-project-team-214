@@ -1,9 +1,8 @@
 import java.util.HashMap;
 
 /**
- * The purpose of this class is to consolidate the each of the
- *  *Reader classes into a single class, that can be succinctly
- *  called.
+ * This class consolidates  each of the *Reader classes into
+ *  a single class, that can be succinctly called.
  */
 public class DataCompiler {
 
@@ -39,11 +38,5 @@ public class DataCompiler {
 		completeBook = dr.mergeData(completeBook, weatherData);
 		
 		return completeBook;
-	}
-	
-	public static void main(String[] args) {
-		DataCompiler dc = new DataCompiler();
-		HashMap<String, DataBook> allData = dc.compile();
-		System.out.println(allData);
 	}
 }

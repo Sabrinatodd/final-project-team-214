@@ -181,11 +181,16 @@ public class DataBook {
 		}
 	}
 	
-	//not sure i need this anymore
-	public ArrayList<Object> toArray(DataBook dataBook){
+	/**
+	 * This method takes a DataBook object and converts
+	 * it to an ArrayList of Doubles.
+	 * @param dataBook the DataBook object to be converted
+	 * @return ArrayList of Doubles indexed in input order
+	 */
+	public ArrayList<Double> toArray(DataBook dataBook){
 		//by adding each value to a designated index, this array
 		//will have a predictable order
-		ArrayList<Object> valuesArray = new ArrayList<Object>();
+		ArrayList<Double> valuesArray = new ArrayList<Double>();
 		
 		//add one bedroom value
 		valuesArray.add(0, dataBook.getOneBedroomPrice());
