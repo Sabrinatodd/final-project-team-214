@@ -48,3 +48,5 @@ To run this program, please download the entirety of this GitHub repository. The
 Weather Data – https://www.ncdc.noaa.gov/cdo-web/ <br />
 Census/Demographic Data – http://www.dof.ca.gov/Reports/Demographic_Reports/Census_2010/#SF1 <br />
 Home Data - https://www.zillow.com/research/data/ <br />
+Icon - Icon made by Freepik from www.flaticon.com <br />
+       https://www.flaticon.com/free-icon/home_169482?term=house%20gps&page=1&position=91 <br />
