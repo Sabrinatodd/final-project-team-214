@@ -1,7 +1,20 @@
 # Overview  <br />
-*************insert summary/description here**********
 
-
+**Home Finder** <br />
+<br />
+The objective of this application is to assist prospective home buyers in California 
+with their searches for a new home. <br />
+<br />
+The app asks users to input a series of criteria indicating the preferred attributes of their future residence, 
+including: price, number of bedrooms, daily temperature, monthly precipitation, annual days below freezing,  local 
+town size, median local age, and local household size. <br />
+<br />
+After users indicate their preferences, a scoring algorithm ranks all the ZIP codes in California based on their 
+compatibility with their input. To determine the best matches, this scoring analysis relies on publicly sourced 
+housing, weather and demographic data from the Zillow Housing Data Archive, the NOAA Global Historical Climatology 
+Network API, and California’s Department of Finance. The top ZIP code results are then presented to the user, who 
+now knows where to look for his or her future home. <br />
+<br />
 Please use the link below to see a general design flowchart for this program:
    https://www.lucidchart.com/documents/view/a110c72c-bc0b-496c-9ca9-3e61ece059b3/0_0 
    
