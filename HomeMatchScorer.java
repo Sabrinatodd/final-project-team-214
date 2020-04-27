@@ -6,9 +6,14 @@ import java.util.*;
  */
 public class HomeMatchScorer {
 	HashMap<String, DataBook> hashOfAllCleanedData;
-	//UserInput() userPreferences;
 	
-	
+	/**
+	 * Default constructor used for testing
+	 */
+	public HomeMatchScorer() {
+		//do nothing
+		
+	}
 
 	/**
 	 * HomeMatchScorer Constructor
@@ -26,7 +31,9 @@ public class HomeMatchScorer {
 	 * @return double representing the score of a zip code based on the user's preferred home price
 	 */
 	public Double scoreHomeValue(double userPreferredBedrooms, double userBudget, double homeCost) {
-		double score = 0.0;
+		//Because budget is often not flexible. Any area where the average home price is over
+		//the users budget gets scored negatively.
+		double score = -5.0;
 		
 		if (homeCost <= userBudget) {
 			// When all other scores are equal, we would like to score
@@ -154,52 +161,28 @@ public class HomeMatchScorer {
 	        return orderedList; 
 	    }
 	 
-	 /**
-	  * Given a sorted ArrayList of Strings, this method prints the
-	  * top n number of Strings from the bottom of the list. This 
-	  * method assumes that the list is ordered smallest to largest
-	  * @param allScores ArrayList of Strings sorted smallest to largest
-	  * @param numberOfScores the number of results to be printed
-	  * 
-	  */
-	 public void prettyPrintScores(ArrayList<String> allScores, int numberOfScores) {
-		 for(int i = 0; i < numberOfScores; i++) {
-			 int listSize = allScores.size();
-			 System.out.println(i+1 + ". " + allScores.get(listSize - (1 + i)));
-		 }
-	 }
-	 
 
+	 
 	 /**
 	  * Given a sorted ArrayList of Strings, this method returns the top 
 	  * n number of Strings from the bottom of the list. This method assumes
 	  * the that the list is ordered smallest to largest. 
-	  * @param allScores
-	  * @param numberOfScores
-	  * @return
+	  * @param allScores ArrayList of Strings sorted smallest to largest
+	  * @param numberOfScores number of scores to return in the output
+	  * @return String of top zip code matches
 	  */
 	 public String getTopScores(ArrayList<String> allScores, int numberOfScores) {
 		 ArrayList<String> list = new ArrayList<String>();
 		 String finalList = "";
+		 
 		 for(int i = 0; i < numberOfScores; i++) {
 			 int listSize = allScores.size();
-			 //String score = i+1 + ". " + allScores.get(listSize - (1 + i));
 			 String score = allScores.get(listSize - (1 + i));
 			 list.add(score);
 		 }
-		 //finalList = list.get(0) + "\n" + list.get(1) + "\n" + list.get(2) + "\n" + list.get(3) + "\n" + list.get(4);
+		 
+		 //seperate zip codes by comma
 		 finalList = list.get(0) + ", " + list.get(1) + ", " + list.get(2) + ", " + list.get(3) + ", " + list.get(4);
 		 return finalList;
 	 }
-	 
-	 public static void main(String[] args) {
-		DataCompiler dc = new DataCompiler();
-		HashMap<String, DataBook> allData = dc.compile();
-		HomeMatchScorer hms = new HomeMatchScorer(allData);
-		
-		ArrayList<String> topMatches = hms.generateTopZipCode(2, 330000.0, 67.0, 2.2, 3.0, 80000.0, 42.0, 1.7);
-		String finalList = hms.getTopScores(topMatches, 5);
-		System.out.println(finalList);
-		
-	}
 }
