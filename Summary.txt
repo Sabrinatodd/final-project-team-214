@@ -1,0 +1,13 @@
+Summary.txt
+
+Title: CA Home Finder Application 
+Authors: @michaelhoffmann @johnconnolly @sabrinatodd
+Github Link: https://github.com/UPenn-CIT599/final-project-team-214 
+
+Description: The objective of this application is to assist prospective home buyers in California with their searches for a new home. 
+
+The app asks users to input a series of criteria indicating the preferred attributes of their future residence, including: price, number of bedrooms, daily temperature, monthly precipitation, annual days below freezing,  local town size, median local age, and local household size. 
+
+After users indicate their preferences, a scoring algorithm ranks all the ZIP codes in California based on their compatibility with the inputs. To determine the best matches, this scoring analysis relies on publicly sourced housing, weather and population data from the Zillow Housing Data Archive, the NOAA Global Historical Climatology Network API, and California’s Department of Finance. The top ZIP code results are then presented to the user, who now knows where to look for his or her future home. 
+
+Responsibilities: All team members contributed to the proposal and ultimate design of this project with ongoing collaboration across program elements. No individual was restricted to one aspect of the project, however, everyone had different focus areas. Sabrina focused on ensuring the data was read properly across various sources; JP focused on working out the mechanics of the scoring algorithm; and Michael focused on building the GUI to pass user inputs to the scoring algorithm. 
