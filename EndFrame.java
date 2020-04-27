@@ -11,7 +11,6 @@ import javax.swing.*;
 public class EndFrame {
 	JFrame outputFrame = new JFrame("Home Finder");
 	JLabel header;
-	JButton b1;
 
 	
 	public EndFrame(String zipCodes) {
@@ -22,6 +21,7 @@ public class EndFrame {
 		outputFrame.setLayout(null);
 		outputFrame.setSize(400, 400);
 		
+		//Add Icon Image
 		outputFrame.setIconImage(new ImageIcon("icon.png").getImage());
 		
 		//Add Header

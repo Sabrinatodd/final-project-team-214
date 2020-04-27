@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+/**
+ * As a child class to the DataReader class, this
+ * class cleans and outputs the final home data
+ * to be used.
+ */
 public class HomeReader extends DataReader{
 	private HashMap<String, DataBook> bookOfHomeData;
 	private String[] homeDataFiles;

@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * As a child class to the DataReader class, this
+ * class cleans and outputs the final census data
+ * to be used.
+ */
 public class CensusReader extends DataReader {
 	private HashMap<String, DataBook> bookOfCensusData;
 	private String[] censusDataFile;

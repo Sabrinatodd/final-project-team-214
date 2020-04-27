@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * As a child class to the DataReader class, this
+ * class cleans and outputs the final weather data
+ * to be used.
+ */
 public class WeatherReader extends DataReader {
 	HashMap<String, DataBook> bookOfAllWeatherData;
 	HashMap<String, DailyWeather> rawWeatherData;
